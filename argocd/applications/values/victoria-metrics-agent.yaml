@@ -14,6 +14,9 @@ config:
   global:
     scrape_interval: 10s
   scrape_configs:
+    - job_name: vmagent
+      static_configs:
+        - targets: ["localhost:8429"]
     ## COPY from Prometheus helm chart https://github.com/helm/charts/blob/master/stable/prometheus/values.yaml
 
     # Scrape config for API servers.
