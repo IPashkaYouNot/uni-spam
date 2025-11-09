@@ -31,13 +31,13 @@ dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-      - name: "default"
+      - name: "kubernetes"
         orgId: 1
         folder: ""
         type: file
         disableDeletion: false
         editable: false
         options:
-          path: /var/lib/grafana/dashboards/default
+          path: /var/lib/grafana/dashboards
 dashboardsConfigMaps:
   kubernetes: "grafana-dashboards-kubernetes"
