@@ -93,7 +93,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PABDA7AB1AD2A1489"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -155,7 +155,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PABDA7AB1AD2A1489"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "avg(name_gauge) by (exported_job)",
