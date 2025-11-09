@@ -1,0 +1,18 @@
+annotations:
+  images: |
+    - name: spam2000
+      image: docker.io/andriiuni/spam2000:1.1394.355
+apiVersion: v2
+appVersion: 1.1394.355
+description: A simple application that fires out multiple metrics
+home: https://uni.tech
+keywords:
+  - monitoring
+  - metrics
+  - victoria-metrics
+  - grafana
+maintainers:
+  - name: Pavlo Pavlichenko
+    url: https://github.com/IPashkaYouNot
+name: spam
+version: 1.0.0
