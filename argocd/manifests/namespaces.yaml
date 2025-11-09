@@ -9,7 +9,7 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: monitoring
+  name: victoria-metrics
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 ---
