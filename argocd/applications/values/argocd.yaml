@@ -1,19 +1,12 @@
 global:
-  domain: argo-cd.production.symphony-solutions.cloud
   additionalLabels:
     managed_by: argo-cd
-    organization: "production"
 controller:
   replicas: 1
   metrics:
     enabled: true
-    service:
-      servicePort: 8082
-      annotations:
-        "prometheus.io/scrape": "true"
-        "prometheus.io/port": "8082"
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true
 dex:
   enabled: false
 redis:
@@ -22,34 +15,19 @@ server:
   replicas: 1
   metrics:
     enabled: true
-    service:
-      servicePort: 8083
-      annotations:
-        "prometheus.io/scrape": "true"
-        "prometheus.io/port": "8083"
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true
 repoServer:
   replicas: 1
   metrics:
     enabled: true
-    service:
-      servicePort: 8084
-      annotations:
-        "prometheus.io/scrape": "true"
-        "prometheus.io/port": "8084"
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true
 applicationSet:
   replicas: 1
   metrics:
     enabled: true
-    service:
-      servicePort: 8080
-      annotations:
-        "prometheus.io/scrape": "true"
-        "prometheus.io/port": "8080"
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true
 notifications:
   enabled: false
