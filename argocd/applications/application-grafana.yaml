@@ -27,3 +27,16 @@ spec:
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
       targetRevision: "argo-setup"
       ref: values
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: grafana
+      namespace: grafana
+      jsonPointers:
+        - /data/admin-password
+    - group: apps
+      kind: Deployment
+      name: grafana
+      namespace: grafana
+      jsonPointers:
+        - /spec/template/metadata/annotations/checksum~1secret
