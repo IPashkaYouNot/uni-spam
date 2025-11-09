@@ -134,3 +134,9 @@ kubectl -n argo-cd port-forward svc/argo-cd-argocd-server 8080:443
 ```
 
 Then you can access the ArgoCD UI at [http://localhost:8080](http://localhost:8080) with the admin password.
+
+To fully delete the local cluster, run:
+
+```sh
+minikube delete
+```
