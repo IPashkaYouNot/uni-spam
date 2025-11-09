@@ -20,8 +20,9 @@ vmselect:
     enabled: true
     storageClassName: standard
     size: 2Gi
-  serviceMonitor:
-    enabled: true
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8481"
 
 vminsert:
   enabled: true
@@ -40,8 +41,9 @@ vminsert:
     type: ClusterIP
   ingress:
     enabled: false
-  serviceMonitor:
-    enabled: true
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8480"
 
 vmstorage:
   enabled: true
@@ -65,5 +67,6 @@ vmstorage:
     servicePort: 8482
     vminsertPort: 8400
     vmselectPort: 8401
-  serviceMonitor:
-    enabled: true
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8482"
