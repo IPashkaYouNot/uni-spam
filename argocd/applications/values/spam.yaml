@@ -1,0 +1,12 @@
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
+
+initChownData:
+  enabled: false
+
+podAnnotations:
+  "prometheus.io/scrape": "true"
+  "prometheus.io/port": "3000"

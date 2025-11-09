@@ -1,0 +1,18 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: manifests
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: spam
+  source:
+    repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+    path: argocd/manifests
+    targetRevision: "main"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argo-cd
+  syncPolicy: {}

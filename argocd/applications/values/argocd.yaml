@@ -1,0 +1,45 @@
+global:
+  additionalLabels:
+    managed_by: argo-cd
+controller:
+  replicas: 1
+  metrics:
+    enabled: true
+    service:
+      servicePort: 8082
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "8082"
+dex:
+  enabled: false
+redis:
+  enabled: true
+server:
+  replicas: 1
+  metrics:
+    enabled: true
+    service:
+      servicePort: 8083
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "8083"
+repoServer:
+  replicas: 1
+  metrics:
+    enabled: true
+    service:
+      servicePort: 8084
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "8084"
+applicationSet:
+  replicas: 1
+  metrics:
+    enabled: true
+    service:
+      servicePort: 8080
+      annotations:
+        "prometheus.io/scrape": "true"
+        "prometheus.io/port": "8080"
+notifications:
+  enabled: false

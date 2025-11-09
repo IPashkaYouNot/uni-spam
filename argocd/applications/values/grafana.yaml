@@ -1,0 +1,43 @@
+replicas: 1
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+ingress:
+  enabled: false
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+adminUser: admin
+# adminPassword: strongpassword
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: victoriametrics
+        type: prometheus
+        orgId: 1
+        url: http://victoria-metrics-cluster-vmselect.victoria-metrics:8481/select/0/prometheus/
+        access: proxy
+        isDefault: true
+        updateIntervalSeconds: 10
+        editable: true
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "kubernetes"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards
+dashboardsConfigMaps:
+  kubernetes: "grafana-dashboards-kubernetes"

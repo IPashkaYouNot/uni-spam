@@ -1,0 +1,72 @@
+vmselect:
+  enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  service:
+    enabled: true
+    servicePort: 8481
+    targetPort: http
+    type: ClusterIP
+  ingress:
+    enabled: false
+  mode: deployment
+  persistentVolume:
+    enabled: true
+    storageClassName: standard
+    size: 2Gi
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8481"
+
+vminsert:
+  enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 300m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  service:
+    enabled: true
+    servicePort: 8480
+    targetPort: http
+    type: ClusterIP
+  ingress:
+    enabled: false
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8480"
+
+vmstorage:
+  enabled: true
+  # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/#retention)
+  retentionPeriod: 1w
+  persistentVolume:
+    enabled: true
+    storageClassName: standard
+    size: 8Gi
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 700m
+      memory: 1Gi
+    requests:
+      cpu: 300m
+      memory: 512Mi
+  service:
+    enabled: true
+    type: ClusterIP
+    servicePort: 8482
+    vminsertPort: 8400
+    vmselectPort: 8401
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8482"

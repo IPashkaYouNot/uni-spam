@@ -1,0 +1,66 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  labels:
+    environment: demo
+    managed_by: argocd
+    project: spam
+  name: spam
+  namespace: argo-cd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  description: spam project
+  destinations:
+    - name: in-cluster
+      namespace: "*"
+      server: https://kubernetes.default.svc
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: ResourceQuota
+    - group: ""
+      kind: LimitRange
+    - group: ""
+      kind: NetworkPolicy
+  orphanedResources:
+    warn: false
+  roles:
+    - description: Read-only privileges to spam project
+      groups:
+        - spam-readonly
+      name: spam-readonly
+      policies:
+        - p, proj:spam:spam-readonly, applications, get, spam/*, allow
+        - p, proj:spam:spam-readonly, logs, get, spam/*, allow
+        - p, proj:spam:spam-readonly, exec, create, spam/*, allow
+    - description: Users privileges to spam project
+      groups:
+        - spam-users
+      name: spam-users
+      policies:
+        - p, proj:spam:spam-users, applications, create, spam/*, allow
+        - p, proj:spam:spam-users, applications, delete, spam/*, allow
+        - p, proj:spam:spam-users, applications, get, spam/*, allow
+        - p, proj:spam:spam-users, applications, override, spam/*, allow
+        - p, proj:spam:spam-users, applications, sync, spam/*, allow
+        - p, proj:spam:spam-users, applications, update, spam/*, allow
+        - p, proj:spam:spam-users, logs, get, spam/*, allow
+        - p, proj:spam:spam-users, exec, create, spam/*, allow
+    - description: Powerusers privileges to spam project
+      groups:
+        - spam-admins
+      name: spam-admins
+      policies:
+        - p, proj:spam:spam-admins, applications, *, spam/*, allow
+        - p, proj:spam:spam-admins, repositories, *, spam/*, allow
+        - p, proj:spam:spam-admins, clusters, *, spam/*, allow
+    - description: Sync privileges for spam project
+      name: spam-ci
+      policies:
+        - p, proj:spam:spam-ci, applications, sync, spam/*, allow
+  sourceNamespaces:
+    - argo-cd
+  sourceRepos:
+    - "*"

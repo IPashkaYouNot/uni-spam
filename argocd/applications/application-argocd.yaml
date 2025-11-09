@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: argo-cd
+    environment: demo
+    project: spam
+spec:
+  destination:
+    namespace: argo-cd
+    server: "https://kubernetes.default.svc"
+  syncPolicy: {}
+  project: spam
+  revisionHistoryLimit: 3
+  sources:
+    - repoURL: "https://argoproj.github.io/argo-helm"
+      targetRevision: 9.1.0
+      chart: argo-cd
+      helm:
+        releaseName: argo-cd
+        valueFiles:
+          - $values/argocd/applications/values/argocd.yaml
+    - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+      targetRevision: "main"
+      ref: values

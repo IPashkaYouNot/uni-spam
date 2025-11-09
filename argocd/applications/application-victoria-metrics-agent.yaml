@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoria-metrics-agent
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: victoria-metrics-agent
+    environment: demo
+    project: spam
+spec:
+  destination:
+    namespace: victoria-metrics
+    server: "https://kubernetes.default.svc"
+  syncPolicy: {}
+  project: spam
+  revisionHistoryLimit: 3
+  sources:
+    - repoURL: "https://victoriametrics.github.io/helm-charts"
+      targetRevision: 0.26.4
+      chart: victoria-metrics-agent
+      helm:
+        releaseName: victoria-metrics-agent
+        valueFiles:
+          - $values/argocd/applications/values/victoria-metrics-agent.yaml
+    - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+      targetRevision: "main"
+      ref: values

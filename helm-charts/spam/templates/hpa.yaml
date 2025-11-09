@@ -1,0 +1,47 @@
+{{- $sts := list "sts" "StatefulSet" "statefulset" -}}
+{{- if .Values.autoscaling.enabled }}
+apiVersion: {{ include "spam.hpa.apiVersion" . }}
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "spam.fullname" . }}
+  namespace: {{ include "spam.namespace" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "spam.name" . }}
+    helm.sh/chart: {{ include "spam.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "spam.fullname" . }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.autoscaling.targetMemory }}
+    - type: Resource
+      resource:
+        name: memory
+        {{- if eq (include "spam.hpa.apiVersion" .) "autoscaling/v2beta1" }}
+        targetAverageUtilization: {{ .Values.autoscaling.targetMemory }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetMemory }}
+        {{- end }}
+    {{- end }}
+    {{- if .Values.autoscaling.targetCPU }}
+    - type: Resource
+      resource:
+        name: cpu
+        {{- if eq (include "spam.hpa.apiVersion" .) "autoscaling/v2beta1" }}
+        targetAverageUtilization: {{ .Values.autoscaling.targetCPU }}
+        {{- else }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetCPU }}
+        {{- end }}
+    {{- end }}
+  {{- if .Values.autoscaling.behavior }}
+  behavior: {{ toYaml .Values.autoscaling.behavior | nindent 4 }}
+  {{- end }}
+{{- end }}

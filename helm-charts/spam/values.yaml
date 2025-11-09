@@ -1,0 +1,179 @@
+global:
+  imageRegistry: null
+  imagePullSecrets: []
+
+rbac:
+  create: true
+  # useExistingRole: name-of-some-role
+  extraRoleRules: []
+
+serviceAccount:
+  create: true
+  name: ""
+  labels: {}
+  annotations: {}
+  automountServiceAccountToken: false
+
+replicas: 1
+
+automountServiceAccountToken: true
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPU: 80
+  targetMemory: 80
+  behaviour: {}
+
+pdb:
+  create: false
+  # minAvailable: ""
+  # maxUnavailable: ""
+  # unhealthyPodEvictionPolicy: ""
+
+deploymentStrategy:
+  type: RollingUpdate
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: spam
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: spam
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+image:
+  registry: docker.io
+  repository: andriiuni/spam2000
+  tag: 1.1394.355
+  sha: ""
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  runAsGroup: 1001
+  fsGroup: 1001
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
+
+extraLabels: {}
+
+# priorityClassName: ""
+
+podLabels: {}
+podAnnotations: {}
+
+podPortName: spam
+# annotations: {}
+
+service:
+  enabled: true
+  type: ClusterIP
+  ipFamilyPolicy: ""
+  ipFamilies: []
+  externalIPs: []
+  externalTrafficPolicy: ""
+  loadBalancerIP: ""
+  loadBalancerClass: ""
+  loadBalancerSourceRanges: []
+  port: 80
+  targetPort: 3000
+  annotations: {}
+  labels: {}
+  portName: service
+  appProtocol: ""
+  sessionAffinity: ""
+
+serviceMonitor:
+  enabled: false
+  path: /metrics
+  labels: {}
+  interval: 15s
+  scheme: http
+  tlsConfig: {}
+  scrapeTimeout: 30s
+  relabelings: []
+  metricRelabelings: []
+  basicAuth: {}
+  targetLabels: []
+
+ingress:
+  enabled: false
+  annotations: {}
+  labels: {}
+  path: /
+  pathType: ImplementationSpecific
+  hosts:
+    - spam.local
+  extraPaths: []
+  tls: []
+
+resources: {}
+
+affinity: {}
+nodeSelector: {}
+tolerations: []
+
+# schedulerName: ""
+
+initChownData:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: library/busybox
+    tag: "1.31.1"
+    sha: ""
+    pullPolicy: IfNotPresent
+  resources: {}
+  securityContext:
+    readOnlyRootFilesystem: false
+    runAsNonRoot: false
+    runAsUser: 0
+    seccompProfile:
+      type: RuntimeDefault
+    capabilities:
+      add:
+        - CHOWN
+      drop:
+        - ALL
+
+# command: []
+# args: []
+env: []
+
+enableServiceLinks: true
+
+namespaceOverride: ""
+
+revisionHistoryLimit: 10
+
+networkPolicy:
+  enabled: true
+  ingress: true
+  allowExternal: true
+  explicitNamespacesSelector: {}
+  egress:
+    enabled: false
+    blockDNSResolution: false
+    ports: []
+    to: []

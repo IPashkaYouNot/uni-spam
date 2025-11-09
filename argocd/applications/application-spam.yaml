@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spam
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: spam
+    environment: demo
+    project: spam
+spec:
+  destination:
+    namespace: spam-app
+    server: "https://kubernetes.default.svc"
+  syncPolicy: {}
+  project: spam
+  revisionHistoryLimit: 3
+  sources:
+    - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+      targetRevision: "main"
+      path: helm-charts/spam
+      helm:
+        releaseName: spam
+        valueFiles:
+          - $values/argocd/applications/values/spam.yaml
+    - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+      targetRevision: "main"
+      ref: values
