@@ -11,7 +11,7 @@ metadata:
     project: spam
 spec:
   destination:
-    namespace: spam
+    namespace: spam-app
     server: "https://kubernetes.default.svc"
   syncPolicy: {}
   project: spam
