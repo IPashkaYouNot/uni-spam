@@ -18,7 +18,8 @@ spec:
   revisionHistoryLimit: 3
   sources:
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
-      chart: helm-charts/spam
+      targetRevision: argo-setup
+      path: helm-charts/spam
       helm:
         releaseName: spam
         valueFiles:
