@@ -25,5 +25,5 @@ spec:
         valueFiles:
           - $values/argocd/applications/values/victoria-metrics-cluster.yaml
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
-      targetRevision: "argo-setup"
+      targetRevision: "main"
       ref: values

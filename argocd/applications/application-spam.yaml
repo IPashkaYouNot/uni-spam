@@ -18,12 +18,12 @@ spec:
   revisionHistoryLimit: 3
   sources:
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
-      targetRevision: argo-setup
+      targetRevision: "main"
       path: helm-charts/spam
       helm:
         releaseName: spam
         valueFiles:
           - $values/argocd/applications/values/spam.yaml
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
-      targetRevision: "argo-setup"
+      targetRevision: "main"
       ref: values

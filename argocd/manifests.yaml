@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
     path: argocd/manifests
-    targetRevision: "argo-setup"
+    targetRevision: "main"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argo-cd

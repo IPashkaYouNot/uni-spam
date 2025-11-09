@@ -25,7 +25,7 @@ spec:
         valueFiles:
           - $values/argocd/applications/values/grafana.yaml
     - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
-      targetRevision: "argo-setup"
+      targetRevision: "main"
       ref: values
   ignoreDifferences:
     - group: ""
