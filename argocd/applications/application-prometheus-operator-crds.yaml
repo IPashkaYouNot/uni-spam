@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-operator-crds
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    name: prometheus-operator-crds
+    environment: demo
+    project: spam
+spec:
+  destination:
+    server: "https://kubernetes.default.svc"
+  syncPolicy: {}
+  project: spam
+  revisionHistoryLimit: 3
+  sources:
+    - repoURL: "https://prometheus-community.github.io/helm-charts"
+      targetRevision: 24.0.2
+      chart: prometheus-operator-crds
+      helm:
+        releaseName: prometheus-operator-crds
+        valueFiles:
+          - $values/argocd/applications/values/prometheus-operator-crds.yaml
+    - repoURL: "https://github.com/IPashkaYouNot/uni-spam.git"
+      targetRevision: "argo-setup"
+      ref: values
