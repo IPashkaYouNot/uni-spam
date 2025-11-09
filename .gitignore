@@ -1,0 +1,11 @@
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
+
+### Project specific
+*.log
