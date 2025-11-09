@@ -18,7 +18,7 @@ spec:
   revisionHistoryLimit: 3
   sources:
     - repoURL: "https://victoriametrics.github.io/helm-charts"
-      targetRevision: 24.0.2
+      targetRevision: 0.26.4
       chart: victoria-metrics-cluster
       helm:
         releaseName: victoria-metrics-cluster
