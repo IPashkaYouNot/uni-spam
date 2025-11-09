@@ -1,7 +1,7 @@
 replicaCount: 1
 mode: deployment
 remoteWrite:
-  - url: http://vmcluster-victoria-metrics-cluster-vminsert:8480/insert/0/prometheus/
+  - url: http://victoria-metrics-cluster-vminsert:8480/insert/0/prometheus/
 resources:
   limits:
     cpu: 200m
