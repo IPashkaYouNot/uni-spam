@@ -357,6 +357,3 @@ config:
           action: replace
           target_label: node
       ## End of COPY
-
-serviceMonitor:
-  enabled: true
