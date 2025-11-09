@@ -7,5 +7,6 @@ securityContext:
 initChownData:
   enabled: false
 
-serviceMonitor:
-  enabled: true
+podAnnotations:
+  "prometheus.io/scrape": "true"
+  "prometheus.io/port": "8080"
